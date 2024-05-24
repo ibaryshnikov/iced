@@ -1,4 +1,4 @@
-use crate::keyboard::{Key, Location, Modifiers};
+use crate::keyboard::{Key, Location, Modifiers, PhysicalKey};
 use crate::SmolStr;
 
 /// A keyboard event.
@@ -12,7 +12,10 @@ pub enum Event {
     /// A keyboard key was pressed.
     KeyPressed {
         /// The key pressed.
-        key: Key,
+        logical_key: Key,
+
+        /// wrapper around winit's PhysicalKey
+        physical_key: PhysicalKey,
 
         /// The location of the key.
         location: Location,
@@ -27,7 +30,10 @@ pub enum Event {
     /// A keyboard key was released.
     KeyReleased {
         /// The key released.
-        key: Key,
+        logical_key: Key,
+
+        /// wrapper around winit's PhysicalKey
+        physical_key: PhysicalKey,
 
         /// The location of the key.
         location: Location,

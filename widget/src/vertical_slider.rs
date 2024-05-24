@@ -328,7 +328,10 @@ where
                     return event::Status::Captured;
                 }
             }
-            Event::Keyboard(keyboard::Event::KeyPressed { key, .. }) => {
+            Event::Keyboard(keyboard::Event::KeyPressed {
+                logical_key: key,
+                ..
+            }) => {
                 if cursor.position_over(layout.bounds()).is_some() {
                     match key {
                         Key::Named(key::Named::ArrowUp) => {

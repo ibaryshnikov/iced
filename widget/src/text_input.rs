@@ -699,7 +699,9 @@ where
                 }
             }
             Event::Keyboard(keyboard::Event::KeyPressed {
-                key, text, ..
+                logical_key: key,
+                text,
+                ..
             }) => {
                 let state = state::<Renderer>(tree);
 
@@ -955,7 +957,10 @@ where
                     return event::Status::Captured;
                 }
             }
-            Event::Keyboard(keyboard::Event::KeyReleased { key, .. }) => {
+            Event::Keyboard(keyboard::Event::KeyReleased {
+                logical_key: key,
+                ..
+            }) => {
                 let state = state::<Renderer>(tree);
 
                 if state.is_focused.is_some() {

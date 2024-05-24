@@ -1,6 +1,15 @@
 //! Identify keyboard keys.
 use crate::SmolStr;
 
+/// Temporary wrapper for winit's PhysicalKey
+#[derive(Clone, PartialEq, Eq, Debug)]
+pub enum PhysicalKey {
+    /// winit KeyCode
+    Code(winit::keyboard::KeyCode),
+    /// winit Unidentified, omitting NativeKeyCode
+    Unidentified,
+}
+
 /// A key on the keyboard.
 ///
 /// This is mostly the `Key` type found in [`winit`].

@@ -126,11 +126,13 @@ impl Editor {
     }
 
     fn subscription(&self) -> Subscription<Message> {
-        keyboard::on_key_press(|key, modifiers| match key.as_ref() {
-            keyboard::Key::Character("s") if modifiers.command() => {
-                Some(Message::SaveFile)
+        keyboard::on_key_press(|key, _physical_key, modifiers| {
+            match key.as_ref() {
+                keyboard::Key::Character("s") if modifiers.command() => {
+                    Some(Message::SaveFile)
+                }
+                _ => None,
             }
-            _ => None,
         })
     }
 

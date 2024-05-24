@@ -723,7 +723,7 @@ impl Update {
             },
             Event::Keyboard(event) => match event {
                 keyboard::Event::KeyPressed {
-                    key,
+                    logical_key: key,
                     modifiers,
                     text,
                     ..

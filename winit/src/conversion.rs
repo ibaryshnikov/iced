@@ -206,6 +206,15 @@ pub fn window_event(
                 }
             };
 
+            let physical_key = match event.physical_key {
+                winit::keyboard::PhysicalKey::Code(key_code) => {
+                    keyboard::key::PhysicalKey::Code(key_code)
+                }
+                winit::keyboard::PhysicalKey::Unidentified(_) => {
+                    keyboard::key::PhysicalKey::Unidentified
+                }
+            };
+
             let text = {
                 #[cfg(not(target_arch = "wasm32"))]
                 {
@@ -225,7 +234,7 @@ pub fn window_event(
             let winit::event::KeyEvent {
                 state, location, ..
             } = event;
-            let key = key(logical_key);
+            let logical_key = key(logical_key);
             let modifiers = self::modifiers(modifiers);
 
             let location = match location {
@@ -244,7 +253,8 @@ pub fn window_event(
             match state {
                 winit::event::ElementState::Pressed => {
                     keyboard::Event::KeyPressed {
-                        key,
+                        logical_key,
+                        physical_key,
                         modifiers,
                         location,
                         text,
@@ -252,7 +262,8 @@ pub fn window_event(
                 }
                 winit::event::ElementState::Released => {
                     keyboard::Event::KeyReleased {
-                        key,
+                        logical_key,
+                        physical_key,
                         modifiers,
                         location,
                     }

@@ -467,7 +467,7 @@ where
                 }
 
                 if let Event::Keyboard(keyboard::Event::KeyPressed {
-                    key: keyboard::Key::Named(named_key),
+                    logical_key: keyboard::Key::Named(named_key),
                     modifiers,
                     ..
                 }) = event

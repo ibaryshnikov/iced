@@ -70,6 +70,7 @@ impl Stopwatch {
 
         fn handle_hotkey(
             key: keyboard::Key,
+            _logical_key: keyboard::PhysicalKey,
             _modifiers: keyboard::Modifiers,
         ) -> Option<Message> {
             use keyboard::key;
