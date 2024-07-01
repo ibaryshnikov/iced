@@ -193,10 +193,15 @@ pub fn window_event(
         },
         WindowEvent::KeyboardInput { event, .. } => Some(Event::Keyboard({
             let logical_key = {
-                #[cfg(not(target_arch = "wasm32"))]
+                #[cfg(not(any(target_arch = "wasm32", target_os = "android")))]
                 {
                     use winit::platform::modifier_supplement::KeyEventExtModifierSupplement;
                     event.key_without_modifiers()
+                }
+
+                #[cfg(target_os = "android")]
+                {
+                    event.logical_key
                 }
 
                 #[cfg(target_arch = "wasm32")]
@@ -207,12 +212,17 @@ pub fn window_event(
             };
 
             let text = {
-                #[cfg(not(target_arch = "wasm32"))]
+                #[cfg(not(any(target_arch = "wasm32", target_os = "android")))]
                 {
                     use crate::core::SmolStr;
                     use winit::platform::modifier_supplement::KeyEventExtModifierSupplement;
 
                     event.text_with_all_modifiers().map(SmolStr::new)
+                }
+
+                #[cfg(target_os = "android")]
+                {
+                    event.text
                 }
 
                 #[cfg(target_arch = "wasm32")]
