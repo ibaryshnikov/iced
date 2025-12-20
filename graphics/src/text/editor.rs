@@ -449,6 +449,8 @@ impl editor::Editor for Editor {
                         },
                     );
                 }
+                // Do nothing, these are for user convenience only
+                Action::Focus | Action::Blur => {}
             }
         });
     }
